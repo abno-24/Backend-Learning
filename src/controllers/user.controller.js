@@ -16,11 +16,11 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   // Checks username already exist or not
-  const existedUserName = User.findOne({ userName });
+  const existedUserName = await User.findOne({ userName });
   if (existedUserName) throw new ApiError(409, "user name already exist");
 
   // Checks email already exist or not
-  const existedEmail = User.findOne({ email });
+  const existedEmail = await User.findOne({ email });
   if (existedEmail) throw new ApiError(409, "email already exist");
 
   // file handling
@@ -51,6 +51,7 @@ const registerUser = asyncHandler(async (req, res) => {
   );
 
   // checks user created or not
+
   if (!createdUser) throw new ApiError(500, "Internal server error");
 
   return res
