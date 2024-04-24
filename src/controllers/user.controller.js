@@ -29,11 +29,13 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (!avatarLocalPath) throw new ApiError(400, "Avatar file is required");
 
+  // file upload on cloudinary
   const avatar = await uploadOnCloudinary(avatarLocalPath);
   const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
   if (!avatar) throw new ApiError(400, "Avatar file is required");
 
+  // creates user object
   const user = await User.create({
     userName: userName.toLowerCase(),
     email,
@@ -43,10 +45,12 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
   });
 
+  // removes fields from response
   const createdUser = await User.findById(user._id).select(
     "-password -refreshToken"
   );
 
+  // checks user created or not
   if (!createdUser) throw new ApiError(500, "Internal server error");
 
   return res
