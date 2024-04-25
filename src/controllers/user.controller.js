@@ -6,7 +6,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   const { userName, email, fullName, password } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
   // Checks none of the fields are empty
   if (
@@ -23,7 +23,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const existedEmail = await User.findOne({ email });
   if (existedEmail) throw new ApiError(409, "email already exist");
 
-  console.log("Request files", req.files);
+  // console.log("Request files:", req.files);
 
   // file handling
   const avatarLocalPath = req.files?.avatar[0]?.path;
@@ -62,7 +62,6 @@ const registerUser = asyncHandler(async (req, res) => {
   );
 
   // checks user created or not
-
   if (!createdUser) throw new ApiError(500, "Internal server error");
 
   return res
