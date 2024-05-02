@@ -58,10 +58,12 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+// function to check whether the user provided password and hashed password is identical
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
+// function to generate access token
 userSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     {
@@ -75,6 +77,7 @@ userSchema.methods.generateAccessToken = function () {
   );
 };
 
+// function to generate refresh token
 userSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
     {
