@@ -74,7 +74,7 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
   });
 
-  // removes fields from response
+  // removes specific fields from response
   const createdUser = await User.findById(user._id).select(
     "-password -refreshToken"
   );
