@@ -130,6 +130,7 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 });
 
+// User logout
 const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(req.user._id, {
     $set: {
@@ -149,6 +150,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged out"));
 });
 
+// Generates new refresh & access token
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const incomingRefreshToken =
     req.cookies.refreshToken || req.body.refreshToken;
