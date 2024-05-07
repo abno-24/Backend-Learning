@@ -218,6 +218,13 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     .json(200, req.user, "User information fetched successfully");
 });
 
+// Update account details
+const updateAccountDetails = asyncHandler(async (req, res) => {
+  const { fullName, email } = req.body;
+
+  if (!fullName || !email) throw new ApiError(400, "All fields are required");
+});
+
 export {
   registerUser,
   loginUser,
@@ -225,4 +232,5 @@ export {
   refreshAccessToken,
   changeCurrentPassword,
   getCurrentUser,
+  updateAccountDetails,
 };
