@@ -218,7 +218,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     .json(200, req.user, "User information fetched successfully");
 });
 
-// Update account details
+// Update user account details
 const updateAccountDetails = asyncHandler(async (req, res) => {
   const { fullName, email } = req.body;
 
@@ -268,7 +268,8 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 const updateUserCoverImage = asyncHandler(async (req, res) => {
   const coverImageLocalPath = req.file?.path;
 
-  if (!coverImageLocalPath) throw new ApiError(400, "Cover image file is missing");
+  if (!coverImageLocalPath)
+    throw new ApiError(400, "Cover image file is missing");
 
   const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
